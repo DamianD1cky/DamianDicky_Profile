@@ -1,0 +1,212 @@
+export type Palette = readonly [string, string, string];
+
+export interface Project {
+  readonly slug: string;
+  readonly title: string;
+  readonly category: string;
+  readonly date: string;
+  readonly roles: readonly string[];
+  readonly description: string;
+  readonly palette: Palette;
+  /** Cover width / height. */
+  readonly ratio: number;
+}
+
+// Placeholder portfolio entries. Replace them with your own work.
+export const projects: readonly Project[] = [
+  {
+    slug: "afterglow",
+    title: "Afterglow",
+    category: "Portfolio",
+    date: "April 2026",
+    roles: ["Design Direction", "Website Design"],
+    description: "A personal portfolio experiment: one gallery, many ways to move through it.",
+    palette: ["#0f1b3d", "#f2efe8", "#2f5cff"],
+    ratio: 4 / 3,
+  },
+  {
+    slug: "kite-and-kin",
+    title: "Kite & Kin",
+    category: "Interior · Brand",
+    date: "January 2026",
+    roles: ["Art Direction", "Website Design"],
+    description: "Brand site for an interior studio that switches layouts to mirror its two moods.",
+    palette: ["#e8dcc6", "#1b1a17", "#c9962c"],
+    ratio: 5 / 4,
+  },
+  {
+    slug: "polar-night",
+    title: "Polar Night",
+    category: "Product · Launch",
+    date: "November 2025",
+    roles: ["Design Lead", "Motion"],
+    description: "A launch story for a hardware product, paced with scroll-linked reveals.",
+    palette: ["#1d2733", "#9fb3c8", "#e9eef2"],
+    ratio: 3 / 2,
+  },
+  {
+    slug: "margin-notes",
+    title: "Margin Notes",
+    category: "Personal Brand",
+    date: "September 2025",
+    roles: ["Website Design"],
+    description: "A writer's notebook-style site that turns essays into browsable index cards.",
+    palette: ["#f4ead8", "#2b2a27", "#d4553a"],
+    ratio: 4 / 3,
+  },
+  {
+    slug: "verdant",
+    title: "Verdant",
+    category: "Venture Capital",
+    date: "July 2025",
+    roles: ["Art Direction", "Design Lead"],
+    description: "A restrained, typographic site for an early-stage climate fund.",
+    palette: ["#6b7a3a", "#0e1f3a", "#d8ccb0"],
+    ratio: 5 / 4,
+  },
+  {
+    slug: "monolith-type",
+    title: "Monolith Type",
+    category: "Type Foundry",
+    date: "May 2025",
+    roles: ["Design Direction", "Interaction"],
+    description: "A type foundry showcase with live specimens and variable-font playgrounds.",
+    palette: ["#111111", "#f0f0ea", "#ff5b2e"],
+    ratio: 3 / 2,
+  },
+  {
+    slug: "atlas-room",
+    title: "Atlas Room",
+    category: "Archive · Collection",
+    date: "February 2025",
+    roles: ["Website Design", "Prototyping"],
+    description: "A browsable archive of maps and artifacts with deep-zoom detail views.",
+    palette: ["#d9cdb4", "#3e3a33", "#7a8f86"],
+    ratio: 4 / 3,
+  },
+  {
+    slug: "signal-noise",
+    title: "Signal / Noise",
+    category: "Music",
+    date: "December 2024",
+    roles: ["Art Direction", "Motion"],
+    description: "A record label site where releases are explored through waveform-driven layouts.",
+    palette: ["#15121f", "#b8a4ff", "#f4f1ff"],
+    ratio: 5 / 4,
+  },
+  {
+    slug: "low-tide",
+    title: "Low Tide",
+    category: "Fashion · Campaign",
+    date: "October 2024",
+    roles: ["Design Lead"],
+    description: "Campaign landing page for a coastal capsule collection, told in short chapters.",
+    palette: ["#c7d3d4", "#1f3b4d", "#efe6d8"],
+    ratio: 3 / 2,
+  },
+  {
+    slug: "slow-fire",
+    title: "Slow Fire",
+    category: "Ceramics",
+    date: "July 2024",
+    roles: ["Website Design", "Art Direction"],
+    description: "An online shop and journal for a ceramics studio, with tactile hover details.",
+    palette: ["#b4552e", "#f1e7da", "#3a2a22"],
+    ratio: 4 / 3,
+  },
+  {
+    slug: "glasshouse",
+    title: "Glasshouse",
+    category: "Architecture",
+    date: "March 2024",
+    roles: ["Design Direction"],
+    description: "Case-study platform for an architecture practice focused on light and material.",
+    palette: ["#e4e7e1", "#5d6b62", "#1c211e"],
+    ratio: 5 / 4,
+  },
+  {
+    slug: "open-hours",
+    title: "Open Hours",
+    category: "Promotional",
+    date: "November 2023",
+    roles: ["Website Design", "Motion"],
+    description: "Event microsite for a night-time design festival, scheduled hour by hour.",
+    palette: ["#0b0b12", "#ffcf3f", "#4d5bff"],
+    ratio: 3 / 2,
+  },
+  {
+    slug: "halftone-press",
+    title: "Halftone Press",
+    category: "Editorial",
+    date: "August 2023",
+    roles: ["Art Direction", "Website Design"],
+    description: "A digital home for an independent print publisher, with type-led reading views.",
+    palette: ["#f3efe6", "#e03a2f", "#1a1a1a"],
+    ratio: 4 / 3,
+  },
+  {
+    slug: "meridian-lab",
+    title: "Meridian Lab",
+    category: "Corporate",
+    date: "May 2023",
+    roles: ["Design Lead"],
+    description: "A research lab's identity translated into a calm, data-forward website.",
+    palette: ["#dfe5ec", "#22344f", "#58a6a0"],
+    ratio: 5 / 4,
+  },
+  {
+    slug: "paper-orbit",
+    title: "Paper Orbit",
+    category: "Agency & Studio",
+    date: "February 2023",
+    roles: ["Design Direction", "Interaction"],
+    description: "A playful studio site where every page folds and unfolds like printed matter.",
+    palette: ["#f6d7c3", "#2d2a6e", "#f25f3a"],
+    ratio: 3 / 2,
+  },
+  {
+    slug: "salt-and-cedar",
+    title: "Salt & Cedar",
+    category: "Food & Beverage",
+    date: "October 2022",
+    roles: ["Website Design"],
+    description: "Warm editorial layouts for a small-batch bakery, built around seasonal menus.",
+    palette: ["#efe3cf", "#7b4a2a", "#2e3b2c"],
+    ratio: 4 / 3,
+  },
+  {
+    slug: "commons",
+    title: "Commons",
+    category: "Education",
+    date: "August 2022",
+    roles: ["Art Direction"],
+    description: "A mentorship platform that pairs designers through structured learning paths.",
+    palette: ["#e9ecef", "#3b5bdb", "#212529"],
+    ratio: 5 / 4,
+  },
+  {
+    slug: "tiny-atelier",
+    title: "Tiny Atelier",
+    category: "Agency & Studio",
+    date: "February 2022",
+    roles: ["Website Design", "Motion"],
+    description: "A compact studio portfolio built around a single, endlessly looping reel.",
+    palette: ["#202020", "#e8e2d6", "#9a7b4f"],
+    ratio: 3 / 2,
+  },
+  {
+    slug: "northlight",
+    title: "Northlight",
+    category: "Photography",
+    date: "May 2019",
+    roles: ["Website Design"],
+    description: "A quiet, image-first portfolio for a landscape photographer, paced like a slow slideshow.",
+    palette: ["#cfd8dc", "#263238", "#ffb74d"],
+    ratio: 4 / 3,
+  },
+];
+
+export const findProject = (slug: string | null): number => {
+  const index = projects.findIndex((project) => project.slug === slug);
+  return index === -1 ? 0 : index;
+};

@@ -1,0 +1,356 @@
+.page-home {
+  height: 100svh;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+.stage {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  /* Backdrop for the counter's difference blend. */
+  background: var(--bg);
+}
+
+/* Ribbon (WebGL canvas; the image is the fallback without WebGL) */
+.ribbon {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.ribbon canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.ribbon__fallback {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(240px, 26vw, 440px);
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  translate: -50% -50%;
+  cursor: zoom-in;
+}
+
+/* Project meta (left) */
+.meta {
+  position: absolute;
+  top: 41vh;
+  left: var(--edge);
+  z-index: 2;
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.meta__group {
+  position: absolute;
+  top: 0;
+  display: grid;
+  grid-template-columns: var(--label-width) max-content;
+}
+
+.meta__group--role {
+  left: 0;
+  --label-width: 3.7vw;
+}
+
+.meta__group--launch {
+  left: calc(var(--col-nav) + 4vw - var(--edge));
+  --label-width: 6.3vw;
+}
+
+.meta__label {
+  color: var(--muted);
+}
+
+.meta__value {
+  display: grid;
+}
+
+.meta__stack {
+  display: grid;
+  gap: 18px;
+  justify-items: start;
+}
+
+.meta__link {
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 1px;
+}
+
+.meta__link span {
+  display: inline-block;
+  transition: transform 0.5s var(--ease-out);
+}
+
+.meta__link:hover span {
+  transform: translate3d(4px, 0, 0);
+}
+
+/* Counter (difference blend keeps it legible over images and background) */
+.counter {
+  position: absolute;
+  top: 72vh;
+  left: calc(var(--col-nav) + 4vw);
+  z-index: 3;
+  color: #fff;
+  mix-blend-mode: difference;
+  pointer-events: none;
+}
+
+.counter__label {
+  display: block;
+  font-size: 11px;
+  color: #777;
+}
+
+.counter__value {
+  display: block;
+  margin-top: -0.02em;
+  margin-left: 0.4em;
+  font-size: clamp(96px, 11vw, 190px);
+  font-weight: 380;
+  line-height: 0.82;
+  letter-spacing: -0.06em;
+  font-variant-numeric: tabular-nums;
+}
+
+.counter__total {
+  position: absolute;
+  top: 0;
+  left: calc(var(--col-sound) - var(--col-nav) - 4vw);
+  font-size: 11px;
+}
+
+/* Synced project list (right) */
+.list {
+  position: absolute;
+  inset: 0 auto 0 70.8vw;
+  z-index: 2;
+  width: 23.3vw;
+  overflow: hidden;
+  --item-height: 19.2vh;
+  mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent);
+}
+
+.list__track {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  will-change: transform;
+}
+
+.list__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: var(--item-height);
+  text-align: center;
+  cursor: pointer;
+  --focus: 0;
+  opacity: calc(0.16 + 0.84 * var(--focus));
+}
+
+.list__category {
+  color: var(--muted);
+}
+
+.list__title {
+  font-family: var(--display);
+  font-size: 19px;
+  font-weight: 430;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.list__item.is-active .list__title:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.list__dash {
+  width: 14px;
+  height: 1px;
+  margin: 5px 0;
+  background: currentColor;
+  opacity: 0.5;
+}
+
+.list__description {
+  display: -webkit-box;
+  max-width: 250px;
+  overflow: hidden;
+  font-size: 11px;
+  line-height: 1.4;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+/* Palette swatches of the active project */
+.swatches {
+  position: absolute;
+  top: 50%;
+  right: var(--edge);
+  z-index: 2;
+  display: flex;
+  gap: 4px;
+  translate: 0 -50%;
+}
+
+.swatches i {
+  width: 14px;
+  height: 14px;
+  transition: background-color 0.8s var(--ease-out);
+}
+
+.hint,
+.reel {
+  position: absolute;
+  bottom: 18px;
+  z-index: 2;
+  font-size: 11px;
+}
+
+.hint {
+  left: var(--edge);
+  color: var(--muted);
+}
+
+.reel {
+  right: var(--edge);
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Intro */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: var(--paper);
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 0.95s var(--ease-in-out);
+}
+
+.intro.is-out {
+  clip-path: inset(0 0 100% 0);
+}
+
+.intro__name {
+  font-family: var(--display);
+  font-size: clamp(72px, 15vw, 240px);
+  font-weight: 560;
+  font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 1;
+  line-height: 0.86;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: var(--accent);
+}
+
+.intro__line {
+  display: block;
+  overflow: hidden;
+  padding: 0.02em 0.04em;
+}
+
+.intro__char {
+  display: inline-block;
+  transform: translate3d(0, 108%, 0);
+  transition: transform 0.9s var(--ease-out);
+  transition-delay: calc(var(--i) * 45ms);
+}
+
+.intro.is-in .intro__char {
+  transform: translate3d(0, 0, 0);
+}
+
+.intro.is-out .intro__char {
+  transform: translate3d(0, -108%, 0);
+  transition-duration: 0.7s;
+  transition-timing-function: var(--ease-in-out);
+  transition-delay: calc(var(--i) * 25ms);
+}
+
+/* Compact layout */
+@media (max-width: 1023px) {
+  .meta,
+  .hint {
+    display: none;
+  }
+
+  .counter {
+    top: 13vh;
+    left: var(--edge);
+  }
+
+  .counter__label {
+    display: none;
+  }
+
+  .counter__value {
+    margin-left: -0.04em;
+    font-size: clamp(72px, 16vw, 132px);
+  }
+
+  .counter__total {
+    left: calc(100% + 0.6em);
+    font-size: 16px;
+  }
+
+  .list {
+    inset: auto 0 9vh 0;
+    width: auto;
+    height: 27vh;
+    --item-height: 27vh;
+    mask-image: none;
+  }
+
+  .list__item {
+    gap: 8px;
+    opacity: var(--focus);
+    filter: blur(calc((1 - var(--focus)) * 8px));
+  }
+
+  .list__category {
+    font-size: 15px;
+  }
+
+  .list__title {
+    font-size: clamp(28px, 6vw, 42px);
+  }
+
+  .list__description {
+    max-width: 34ch;
+    font-size: 15px;
+  }
+
+  .swatches {
+    top: auto;
+    right: auto;
+    bottom: 3.5vh;
+    left: 50%;
+    translate: -50% 0;
+  }
+
+  .swatches i {
+    width: 22px;
+    height: 22px;
+  }
+
+  .reel {
+    bottom: auto;
+    top: 26px;
+    z-index: 55;
+  }
+}
