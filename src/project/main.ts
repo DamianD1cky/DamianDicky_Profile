@@ -26,6 +26,7 @@ const project = projects[index] ?? projects[0];
 const next = projects[wrapIndex(index + 1, projects.length)] ?? projects[0];
 if (!project || !next) throw new Error("No projects configured");
 document.title = `${site.name} — ${project.title}`;
+const homeHref = `/?work=${encodeURIComponent(project.slug)}`;
 
 const media = MEDIA_RATIOS.map((ratio, slot) => ({
   ratio,
@@ -42,6 +43,9 @@ const lines = (values: readonly string[]) => values.map((value) => `<span>${e(va
 const root = required<HTMLElement>(document, "[data-project]");
 root.append(
   html(`
+  <a class="project__back" href="${homeHref}" data-transition data-transition-label="${e(project.title)}" aria-label="Back to selected work at ${e(project.title)}">
+    <span aria-hidden="true">←</span><span class="project__back-label">Back to work</span>
+  </a>
   <div class="project__scroll" data-scroll>
     <h1 class="project__title" data-reveal style="--reveal-delay: 120ms; --chars: ${project.title.length}">
       <span class="project__title-text" data-title-text>${e(project.title)}</span>
@@ -100,7 +104,7 @@ root.append(
 `),
 );
 
-mountChrome({ homeHref: "/" });
+mountChrome({ homeHref });
 
 const scrollArea = required<HTMLElement>(root, "[data-scroll]");
 const scroller = createSmoothScroller(scrollArea);

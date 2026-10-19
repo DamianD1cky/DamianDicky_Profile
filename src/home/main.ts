@@ -4,7 +4,7 @@ import "../styles/base.css";
 import "../styles/home.css";
 
 import { site } from "../config";
-import { projects } from "../data/projects";
+import { findProject, projects } from "../data/projects";
 import { blurSwap } from "../lib/blurSwap";
 import { mountChrome } from "../lib/chrome";
 import { escapeHtml as e, html, required } from "../lib/dom";
@@ -20,8 +20,22 @@ import type { RibbonScene } from "./ribbonScene";
 // three.js stays out of the first chunk and loads while fonts settle.
 const ribbonModule = import("./ribbonScene");
 const LIST_COPIES = 3;
+const initialProject = findProject(
+    new URLSearchParams(window.location.search).get("work"),
+);
 const projectHref = (slug: string) =>
     `/project.html?p=${encodeURIComponent(slug)}`;
+
+const syncProjectUrl = (index: number) => {
+    const project = projects[index];
+    if (!project) return;
+    const url = new URL(window.location.href);
+    if (index === 0) url.searchParams.delete("work");
+    else url.searchParams.set("work", project.slug);
+    const href = `${url.pathname}${url.search}${url.hash}`;
+    const current = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+    if (href !== current) window.history.replaceState(window.history.state, "", href);
+};
 
 mountChrome({ homeHref: "/" });
 
@@ -171,7 +185,8 @@ required<HTMLButtonElement>(stage, "[data-reel]").addEventListener(
 );
 
 async function start(): Promise<void> {
-    render(0, false);
+    syncProjectUrl(initialProject);
+    render(initialProject, false);
     measureList();
     const [{ RibbonScene, bindRibbonInput }] = await Promise.all([
         ribbonModule,
@@ -181,7 +196,11 @@ async function start(): Promise<void> {
         container: required<HTMLElement>(stage, "[data-ribbon]"),
         projects,
         covers,
-        onChange: (index) => render(index, true),
+        initialIndex: initialProject,
+        onChange: (index) => {
+            syncProjectUrl(index);
+            render(index, true);
+        },
         onActivate: (index) => {
             const project = projects[index];
             if (project) navigateWithTransition(projectHref(project.slug), project.title);

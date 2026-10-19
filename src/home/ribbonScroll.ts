@@ -36,6 +36,16 @@ export class RibbonScroll {
         );
     }
 
+    /** Places the ribbon at an exact page without animating through earlier pages. */
+    jumpTo(page: number): void {
+        this.current = page;
+        this.target = page;
+        this.speed = 0;
+        this.queued = 0;
+        this.settleAt = 0;
+        this.dragging = false;
+    }
+
     /** Mouse wheel notches, keys and clicks move by whole pages. */
     moveBy(pages: number): void {
         if (pages === 0) return;

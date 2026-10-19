@@ -38,6 +38,7 @@ export interface RibbonOptions {
     readonly container: HTMLElement;
     readonly projects: readonly Project[];
     readonly covers: readonly string[];
+    readonly initialIndex?: number;
     readonly onChange: (index: number) => void;
     readonly onActivate: (index: number) => void;
     readonly onFrame?: (position: number) => void;
@@ -127,6 +128,12 @@ export class RibbonScene {
     ) {
         this.projectCount = options.projects.length;
         this.pageCount = pageCountFor(this.projectCount);
+        const initialIndex = wrapIndex(
+            options.initialIndex ?? 0,
+            this.projectCount,
+        );
+        this.active = initialIndex;
+        this.scroll.jumpTo(initialIndex);
         this.matrices = Array.from(
             { length: this.pageCount },
             () => new Matrix4(),
@@ -147,7 +154,7 @@ export class RibbonScene {
             this.fallback = document.createElement("img");
             this.fallback.className = "ribbon__fallback";
             this.fallback.alt = "";
-            this.fallback.src = options.covers[0] ?? "";
+            this.fallback.src = options.covers[initialIndex] ?? "";
             container.append(this.fallback);
         }
 

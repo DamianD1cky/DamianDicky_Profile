@@ -4,6 +4,26 @@
     overscroll-behavior: none;
 }
 
+.project__back {
+    position: fixed;
+    bottom: 18px;
+    left: var(--edge);
+    z-index: 5;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+}
+
+.project__back > span:first-child {
+    display: inline-block;
+    transition: transform 0.5s var(--ease-out);
+}
+
+.project__back:hover > span:first-child {
+    transform: translate3d(-4px, 0, 0);
+}
+
 /* The gallery scrolls inside this layer; info, title and minimap stay fixed above it. */
 .project__scroll {
     position: fixed;
@@ -207,7 +227,7 @@
 
 .project__hint {
     position: fixed;
-    left: var(--edge);
+    left: calc(var(--edge) + 112px);
     bottom: 18px;
     z-index: 3;
     font-size: 11px;
@@ -256,16 +276,34 @@
 
 /* Compact: one column, nothing fixed except the header */
 @media (max-width: 1023px) {
+    .project__back {
+        top: 80px;
+        right: auto;
+        bottom: auto;
+        left: var(--edge);
+        z-index: 55;
+        width: auto;
+        height: 22px;
+        font-size: 11px;
+    }
+
     .project__scroll {
         padding: 96px var(--edge) 0;
     }
 
     .project__title {
         position: static;
+        width: 100%;
         margin: 2vh 0 4vh;
-        font-size: clamp(48px, 13vw, 96px);
+        font-size: clamp(44px, 12vw, 96px);
         white-space: normal;
         pointer-events: auto;
+    }
+
+    .project__title-text {
+        display: block;
+        max-width: 100%;
+        overflow-wrap: anywhere;
     }
 
     .project__title-text.is-faded {
@@ -301,5 +339,11 @@
     .minimap,
     .project__hint {
         display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .project__title {
+        font-size: 36px;
     }
 }
