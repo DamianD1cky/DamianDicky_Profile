@@ -25,6 +25,10 @@ const initialProject = findProject(
 );
 const projectHref = (slug: string) =>
     `/project.html?p=${encodeURIComponent(slug)}`;
+const workHref = (index: number) => {
+    const project = projects[index];
+    return !project || index === 0 ? "/" : `/?work=${encodeURIComponent(project.slug)}`;
+};
 
 const syncProjectUrl = (index: number) => {
     const project = projects[index];
@@ -37,7 +41,7 @@ const syncProjectUrl = (index: number) => {
     if (href !== current) window.history.replaceState(window.history.state, "", href);
 };
 
-mountChrome({ homeHref: "/" });
+const chrome = mountChrome({ homeHref: workHref(initialProject) });
 
 const stage = required<HTMLElement>(document, "[data-stage]");
 stage.append(
@@ -199,6 +203,7 @@ async function start(): Promise<void> {
         initialIndex: initialProject,
         onChange: (index) => {
             syncProjectUrl(index);
+            chrome.setWorkHref(workHref(index));
             render(index, true);
         },
         onActivate: (index) => {

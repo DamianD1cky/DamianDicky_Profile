@@ -10,6 +10,7 @@ export default defineConfig({
     rolldownOptions: {
       input: {
         home: page("./index.html"),
+        about: page("./about.html"),
         project: page("./project.html"),
       },
     },
